@@ -117,3 +117,8 @@ router.post("/newcountry", function(req, res) {
 
 // Export the created router
 module.exports = router;
+
+// Initialize server
+app.listen(5000, () => {
+    console.log("Running on port 5000.");
+  });
