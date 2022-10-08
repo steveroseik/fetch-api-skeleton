@@ -5,7 +5,7 @@ const db = require("./controllers/db");
 const express = require("express");
 const bodyParser = require("body-parser");
 
-const router = express.Router();
+const router = express();
 
 router.use(bodyParser.json()); // Automatically parse all POSTs as JSON.
 router.use(bodyParser.urlencoded({ extended: true })); // Automatically parse URL parameters
@@ -115,10 +115,12 @@ router.post("/newcountry", function(req, res) {
     });   
 });
 
+// Initialize server
+router.listen(5000, () => {
+    console.log("Running on port 5000.");
+  });
+
 // Export the created router
 module.exports = router;
 
-// Initialize server
-app.listen(5000, () => {
-    console.log("Running on port 5000.");
-  });
+
