@@ -1,5 +1,5 @@
 // Import the created router
-const routes = require("./routes/index.js");
+const routes = require("./index.js");
 
 // More libraries (you need to import express in every file you use it)
 const express = require("express");
