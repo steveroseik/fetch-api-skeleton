@@ -7,9 +7,9 @@ const mysql = require("mysql");
 
 let connection = mysql.createConnection({
     host: "fdb28.awardspace.net",
-    user: "	4188187_db",
+    user: "4188187_db",
     password: "a421[1p-1Lx7,}ed",
-    database: "	4188187_db"
+    database: "4188187_db"
 });
 
 connection.connect(function (err) {
