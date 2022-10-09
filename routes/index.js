@@ -52,6 +52,10 @@ router.get("/health", function (req, res) {
     return res.send("ok"); // For plain text, use res.send
 });
 
+router.get("/"), function (req, res){
+    return res.send("FETCH APP SERVER \n nothing to find here");
+}
+
 // Basic Addition POST request
 router.post("/add", function (req, res) {
     let body = req.body; // let is like var, but scoped
