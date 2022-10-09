@@ -1,5 +1,5 @@
 // We now import the connection object we exported in db.js.
-const db = require("./controllers/db");
+const db = require("../controllers/db");
 
 // More libraries…
 const express = require("express");
