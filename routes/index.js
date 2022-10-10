@@ -120,8 +120,8 @@ router.post("/newcountry", function(req, res) {
 });
 
 // Initialize server
-router.listen(5000, () => {
-    console.log("Running on port 5000.");
+router.listen(1433, () => {
+    console.log("Running on port 1433.");
   });
 
 // Export the created router

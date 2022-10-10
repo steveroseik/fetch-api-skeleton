@@ -6,10 +6,10 @@
 const mysql = require("mysql");
 
 let connection = mysql.createConnection({
-    host: "fetch-srvr.database.windows.net",
-    user: "roseik",
-    password: "Emptymass1@",
-    database: "fetch_b1"
+    host: "remotemysql.com",
+    user: "KajJGzvfqj",
+    password: "xZ4ntuvRZf",
+    database: "KajJGzvfqj"
 });
 
 connection.connect(function (err) {
