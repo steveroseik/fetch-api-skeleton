@@ -7,7 +7,7 @@ const mysql = require("mysql");
 
 let connection = mysql.createConnection({
     host: "remotemysql.com",
-    user: "KajJGzvfqjgit",
+    user: "KajJGzvfqj",
     password: "xZ4ntuvRZf",
     database: "KajJGzvfqj"
 });
