@@ -10,6 +10,33 @@ const router = express();
 router.use(bodyParser.json()); // Automatically parse all POSTs as JSON.
 router.use(bodyParser.urlencoded({ extended: true })); // Automatically parse URL parameters
 
+// =======> DO NOT EDIT ANY LINE FROM ABOVE <========//
+//                                                   //
+// ================================================= //
+// ==> INSERT BELOW FETCH RELATED API FUNCTIONS <=== //
+
+
+
+
+
+
+
+
+
+
+
+
+// =============> END OF FETCH API <================ //
+// ================================================= //
+//                                                   //
+//                                                   //
+// BELOW ARE TEMPLATES FOR                           //
+// USING GET AND POST REQUESTS                       //
+//                                                   //
+// ===========> DO NOT EDIT OR DELETE <============= //
+//                                                   //
+// ================================================= //
+
 // Skeleton for POST request
 router.post("/mypostapi", function (req, res) {
     let sql = `
@@ -70,6 +97,7 @@ router.post("/add", function (req, res) {
     });
 });
 
+
 // Basic SQL GET Request
 router.get("/countrycodes", function (req, res) {
     let sql = "Select * from Country;"
@@ -106,9 +134,11 @@ router.post("/newcountry", function(req, res) {
 });
 
 // Initialize server
-router.listen(5000, () => {
-    console.log("Running on port 1433.");
-  });
+
+// var portN = 3000;
+// router.listen(portN, () => {
+//     console.log(`Running on port %d.`, portN);
+//   });
 
 // Export the created router
 module.exports = router;
