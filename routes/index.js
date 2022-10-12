@@ -20,19 +20,19 @@ router.post("/add_user", function(req, res) {
 
     let body = req.body;
     let email = body.email;
+    let phone = body.phone;
     let fname = body.firstname;
     let lname = body.lastname;
     let password = body.password;
     let country = body.country;
     let city = body.city;
-    let phone = body.phone;
     let long = 0.0;
     let lat = 0.0;
     let birthdate = body.birthdate;
     let sql = `
         Insert into users values
-            (null, "${email}", "${fname}", "${lname}", "${password}", 
-            "${country}", "${city}", "${phone}", "${long}", "${lat}", "${birthdate}")
+            "${email}", "${phone}", "${fname}", "${lname}", "${password}", 
+            "${country}", "${city}", "${long}", "${lat}", "${birthdate}")
         ;
     `;
     db.query(sql, function (err, result) {
