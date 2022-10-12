@@ -15,11 +15,43 @@ router.use(bodyParser.urlencoded({ extended: true })); // Automatically parse UR
 // ================================================= //
 // ==> INSERT BELOW FETCH RELATED API FUNCTIONS <=== //
 
+// POST request for adding new user to database
+router.post("/add_user", function(req, res) {
 
-
-
-
-
+    let body = req.body;
+    let email = body.email;
+    let fname = body.firstname;
+    let lname = body.lastname;
+    let password = password;
+    let country = body.country;
+    let city = body.city;
+    let phone = body.phone;
+    let long = 0.0;
+    let lat = 0.0;
+    let birthdate = body.birthdate;
+    let sql = `
+        Insert into users values
+            (null, "${email}", "${fname}", "${lname}", "${password}", 
+            "${country}", "${city}", "${phone}", "${long}", "${lat}", "${birthdate}")
+        ;
+    `;
+    db.query(sql, function (err, result) {
+        console.log("Result: " + JSON.stringify(result));
+        if (err) {
+            retObj = {
+                "code": -100,
+                "error": err
+            }
+            return res.send(retObj);
+        } else {
+            retObj = {
+                "code": 200,
+                "error": err
+            }
+            return res.json(retObj);
+        }
+    });   
+});
 
 
 
