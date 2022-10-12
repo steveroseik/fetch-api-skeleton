@@ -5,7 +5,7 @@ const routes = require("./routes/index.js");
 const express = require("express");
 const morgan = require("morgan");
 
-const port = 3000;
+const port = 3306;
 const app = express();
 
 // This sets the access control headers for this server.

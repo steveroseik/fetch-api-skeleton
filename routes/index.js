@@ -31,7 +31,7 @@ router.post("/add_user", function(req, res) {
     let birthdate = body.birthdate;
     let sql = `
         Insert into users values
-            "${email}", "${phone}", "${fname}", "${lname}", "${password}", 
+            ("${email}", "${phone}", "${fname}", "${lname}", "${password}", 
             "${country}", "${city}", "${long}", "${lat}", "${birthdate}")
         ;
     `;
