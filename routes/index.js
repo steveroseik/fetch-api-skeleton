@@ -22,7 +22,7 @@ router.post("/check_user", function(req, res) {
     let email = body.email;
     
     let sql = `
-        Select name from users where email = '${email}';
+        Select first_name from users where email = '${email}';
     `;
     db.query(sql, function (err, result) {
         console.log("Result: " + JSON.stringify(result));
