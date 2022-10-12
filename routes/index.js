@@ -15,7 +15,42 @@ router.use(bodyParser.urlencoded({ extended: true })); // Automatically parse UR
 // ================================================= //
 // ==> INSERT BELOW FETCH RELATED API FUNCTIONS <=== //
 
-// POST request for adding new user to database
+// Request to check if user available
+router.post("/check_user", function(req, res) {
+    let body = req.body;
+    
+    let email = body.email;
+    
+    let sql = `
+        Select name from users where email = '${email}';
+    `;
+    db.query(sql, function (err, result) {
+        console.log("Result: " + JSON.stringify(result));
+        if (err) {
+            return res.send(err);
+        } else {
+            
+            if (result.length > 0){
+                retObj = {
+                    "code": -100,
+                    "error": "User already exist"
+                }
+                return res.json(retObj);
+
+            }else{
+                retObj = {
+                    "code": 200,
+                    "error": `No user found with this email: '${email}'`
+                }
+                return res.json(retObj);
+            }
+            
+        }
+    });   
+});
+
+
+// Request for adding new user to database
 router.post("/add_user", function(req, res) {
 
     let body = req.body;
