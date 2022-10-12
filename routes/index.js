@@ -22,7 +22,7 @@ router.post("/add_user", function(req, res) {
     let email = body.email;
     let fname = body.firstname;
     let lname = body.lastname;
-    let password = password;
+    let password = body.password;
     let country = body.country;
     let city = body.city;
     let phone = body.phone;
