@@ -15,25 +15,23 @@ router.use(bodyParser.urlencoded({ extended: true })); // Automatically parse UR
 // ================================================= //
 // ==> INSERT BELOW FETCH RELATED API FUNCTIONS <=== //
 
-// Request to check if user available
-router.post("/check_user_email_phone", function(req, res) {
+// Request to check if user email availability
+router.post("/check_user_email", function(req, res) {
     let body = req.body;
     
     let email = body.email;
-    let phone = body.phone;
     
-    let sql1 = `
+    let sql = `
         Select first_name from users where email = '${email}';
     `;
-    let sql2 = `
-    Select first_name from users where phone = '${phone}';
-    `;
-    
-    let Errors = '';
-    db.query(sql1, function (err, result) {
+    db.query(sql, function (err, result) {
         console.log("Result: " + JSON.stringify(result));
         if (err) {
-            Errors += err + '\n';
+            retObj = {
+                "code": -200,
+                "message": err
+            }
+            return res.send(retObj);
         } else {
             if (result.length > 0){
                 retObj = {
@@ -42,37 +40,49 @@ router.post("/check_user_email_phone", function(req, res) {
                 }
                 return res.send(retObj);
             }else{
-                db.query(sql2, function (err, result) {
-                    console.log("Result: " + JSON.stringify(result));
-                    if (err) {
-                        Errors += err + '\n';
-                    } else {
-                        if (result.length > 0){
-                            retObj = {
-                                "code": -101,
-                                "message": `Phone exists.`
-                            }
-                            return res.send(retObj);
-                        }else{
-                            retObj = {
-                                "code": 200,
-                                "message": "Email and phone are not linked to any account."
-                            }
-                            return res.send(retObj);
-                        }
-                    }
-                });
+                retObj = {
+                    "code": 200,
+                    "message": `Valid email.`
+                }
+                return res.send(retObj);
             }
         }
     });
+});
+
+// Request to check if user phone availability
+router.post("/check_user_phone", function(req, res) {
+    let body = req.body;
     
-    if (!Errors == ''){
-        retObj = {
-            "code": -2,
-            "message": Errors
+    let phone = body.phone;
+    
+    let sql = `
+        Select first_name from users where phone = '${phone}';
+    `;
+    db.query(sql, function (err, result) {
+        console.log("Result: " + JSON.stringify(result));
+        if (err) {
+            retObj = {
+                "code": -200,
+                "message": err
+            }
+            return res.send(retObj);
+        } else {
+            if (result.length > 0){
+                retObj = {
+                    "code": -101,
+                    "message": `Phone exists.`
+                }
+                return res.send(retObj);
+            }else{
+                retObj = {
+                    "code": 200,
+                    "message": "Valid phone number."
+                }
+                return res.send(retObj);
+            }
         }
-        return res.send(retObj);
-    }
+    });
 });
 
 
