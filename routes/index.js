@@ -39,6 +39,7 @@ router.post("/check_user_email_phone", function(req, res) {
         if (err) {
             Errors += err + '\n';
         } else {
+            validEmail = true;
             if (result.length > 0){
                //user exist
             }else{
