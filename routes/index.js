@@ -31,7 +31,6 @@ router.post("/check_user_email_phone", function(req, res) {
     
     let Errors = '';
     let validEmail = false;
-    let validPhone = false;
     db.query(sql1, function (err, result) {
         console.log("Result: " + JSON.stringify(result));
         if (err) {
@@ -61,7 +60,11 @@ router.post("/check_user_email_phone", function(req, res) {
                 }
                 return res.send(retObj);
             }else{
-                validPhone = true;
+                retObj = {
+                    "code": 200,
+                    "message": "Email and phone are not linked to any account."
+                }
+                return res.send(retObj);
             }
         }
     });
@@ -72,15 +75,7 @@ router.post("/check_user_email_phone", function(req, res) {
             "message": Errors
         }
         return res.send(retObj);
-    }else if(validEmail && validPhone){
-        retObj = {
-            "code": 200,
-            "message": "Email and phone are not linked to any account."
-        }
-        return res.send(retObj);
     }
-    
-
 });
 
 
