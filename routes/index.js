@@ -30,7 +30,6 @@ router.post("/check_user_email_phone", function(req, res) {
     `;
     
     let Errors = '';
-    let validEmail = false;
     db.query(sql1, function (err, result) {
         console.log("Result: " + JSON.stringify(result));
         if (err) {
@@ -43,28 +42,26 @@ router.post("/check_user_email_phone", function(req, res) {
                 }
                 return res.send(retObj);
             }else{
-                validEmail = true;
-            }
-        }
-    });
-    
-    db.query(sql2, function (err, result) {
-        console.log("Result: " + JSON.stringify(result));
-        if (err) {
-            Errors += err + '\n';
-        } else {
-            if (result.length > 0){
-                retObj = {
-                    "code": -101,
-                    "message": `Phone exists.`
-                }
-                return res.send(retObj);
-            }else{
-                retObj = {
-                    "code": 200,
-                    "message": "Email and phone are not linked to any account."
-                }
-                return res.send(retObj);
+                db.query(sql2, function (err, result) {
+                    console.log("Result: " + JSON.stringify(result));
+                    if (err) {
+                        Errors += err + '\n';
+                    } else {
+                        if (result.length > 0){
+                            retObj = {
+                                "code": -101,
+                                "message": `Phone exists.`
+                            }
+                            return res.send(retObj);
+                        }else{
+                            retObj = {
+                                "code": 200,
+                                "message": "Email and phone are not linked to any account."
+                            }
+                            return res.send(retObj);
+                        }
+                    }
+                });
             }
         }
     });
