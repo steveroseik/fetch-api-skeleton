@@ -36,7 +36,7 @@ router.post("/check_user_email_phone", function(req, res) {
         if (err) {
             Errors += err + '\n';
         } else {
-            if (result.length > 0){
+            if (result.length < 0){
                 retObj = {
                     "code": -100,
                     "message": `Email exists.`
@@ -46,7 +46,20 @@ router.post("/check_user_email_phone", function(req, res) {
         }
     });
     
-
+    db.query(sql2, function (err, result) {
+        console.log("Result: " + JSON.stringify(result));
+        if (err) {
+            Errors += err + '\n';
+        } else {
+            if (result.length > 0){
+                retObj = {
+                    "code": -101,
+                    "message": `Phone exists.`
+                }
+                return res.send(retObj);
+            }
+        }
+    });
     
     if (!Errors == ''){
         retObj = {
