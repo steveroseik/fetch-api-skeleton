@@ -30,47 +30,41 @@ router.post("/check_user_email_phone", function(req, res) {
     `;
     
     let Errors = '';
-    
+    let validEmail = false;
+    let validPhone = false;
     db.query(sql1, function (err, result) {
         console.log("Result: " + JSON.stringify(result));
         if (err) {
             Errors += err + '\n';
         } else {
             if (result.length > 0){
-                console.log("Email found");
                 retObj = {
                     "code": -100,
                     "message": `Email exists.`
                 }
                 return res.send(retObj);
             }else{
-                console.log("Email not found");
-                retObj = {
-                    "code": -100,
-                    "message": `Email doesn't exists.`
-                }
-                return res.send(retObj);
+                validEmail = true;
             }
         }
     });
     
-    // db.query(sql2, function (err, result) {
-    //     console.log("Result: " + JSON.stringify(result));
-    //     if (err) {
-    //         Errors += err + '\n';
-    //     } else {
-    //         if (result.length > 0){
-    //             console.log("phone found");
-    //             retObj = {
-    //                 "code": -101,
-    //                 "message": `Phone exists.`
-    //             }
-    //             return res.send(retObj);
-    //         }else{
-    //             console.log("phone not found");
-    //         }
-    //     }
-    // });
+    db.query(sql2, function (err, result) {
+        console.log("Result: " + JSON.stringify(result));
+        if (err) {
+            Errors += err + '\n';
+        } else {
+            if (result.length > 0){
+                retObj = {
+                    "code": -101,
+                    "message": `Phone exists.`
+                }
+                return res.send(retObj);
+            }else{
+                validPhone = true;
+            }
+        }
+    });
     
     if (!Errors == ''){
         retObj = {
@@ -78,12 +72,14 @@ router.post("/check_user_email_phone", function(req, res) {
             "message": Errors
         }
         return res.send(retObj);
+    }else if(validEmail && validPhone){
+        retObj = {
+            "code": 200,
+            "message": "Email and phone are not linked to any account."
+        }
+        return res.send(retObj);
     }
-    // retObj = {
-    //     "code": 200,
-    //     "message": "Email and phone are not linked to any account."
-    // }
-    // return res.send(retObj);
+    
 
 });
 
