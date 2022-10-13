@@ -39,18 +39,23 @@ router.post("/check_user_email_phone", function(req, res) {
         if (err) {
             Errors += err + '\n';
         } else {
-            if (result.length == 0){
-               validEmail = true;
+            if (result.length > 0){
+               //user exist
+            }else{
+                validEmail = true;
             }
         }
     });
+    
     db.query(sql2, function (err, result) {
         console.log("Result: " + JSON.stringify(result));
         if (err) {
             Errors += err + '\n';
         } else {
-            if (result.length == 0){
-               validPhone = true;
+            if (result.length > 0){
+              // user exist
+            }else{
+                validPhone = true;
             }
         }
     });
@@ -84,6 +89,7 @@ router.post("/check_user_email_phone", function(req, res) {
         "message": "Email and phone are not linked to any account."
     }
     return res.send(retObj);
+
 });
 
 
