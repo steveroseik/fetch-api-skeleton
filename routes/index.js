@@ -29,9 +29,6 @@ router.post("/check_user_email_phone", function(req, res) {
     Select first_name from users where phone = '${phone}';
     `;
     
-    let validEmail = true;
-    let validPhone = true;
-
     let Errors = '';
     
     db.query(sql1, function (err, result) {
@@ -40,9 +37,11 @@ router.post("/check_user_email_phone", function(req, res) {
             Errors += err + '\n';
         } else {
             if (result.length > 0){
-               //user exist
-            }else{
-                validEmail = true;
+                retObj = {
+                    "code": -100,
+                    "message": `Email exists.`
+                }
+                return res.send(retObj);
             }
         }
     });
@@ -53,9 +52,11 @@ router.post("/check_user_email_phone", function(req, res) {
             Errors += err + '\n';
         } else {
             if (result.length > 0){
-              // user exist
-            }else{
-                validPhone = true;
+                retObj = {
+                    "code": -101,
+                    "message": `Phone exists.`
+                }
+                return res.send(retObj);
             }
         }
     });
@@ -67,23 +68,6 @@ router.post("/check_user_email_phone", function(req, res) {
         }
         return res.send(retObj);
     }
-
-    if (!validEmail){
-        retObj = {
-            "code": -100,
-            "message": `Email exists.`
-        }
-        return res.send(retObj);
-    }
-
-    if (!validPhone){
-        retObj = {
-            "code": -101,
-            "message": `Phone exists.`
-        }
-        return res.send(retObj);
-    }
-
     retObj = {
         "code": 200,
         "message": "Email and phone are not linked to any account."
