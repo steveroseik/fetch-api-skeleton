@@ -55,7 +55,7 @@ router.post("/check_user_email_phone", function(req, res) {
         }
     });
     
-    if (!Errors.isEmpty){
+    if (!Errors == ''){
         retObj = {
             "code": -2,
             "message": Errors
