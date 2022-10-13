@@ -36,12 +36,15 @@ router.post("/check_user_email_phone", function(req, res) {
         if (err) {
             Errors += err + '\n';
         } else {
-            if (result.length < 0){
+            if (result.length > 0){
+                console.log("Email found");
                 retObj = {
                     "code": -100,
                     "message": `Email exists.`
                 }
                 return res.send(retObj);
+            }else{
+                console.log("Email not found");
             }
         }
     });
@@ -52,11 +55,14 @@ router.post("/check_user_email_phone", function(req, res) {
             Errors += err + '\n';
         } else {
             if (result.length > 0){
+                console.log("phone found");
                 retObj = {
                     "code": -101,
                     "message": `Phone exists.`
                 }
                 return res.send(retObj);
+            }else{
+                console.log("phone not found");
             }
         }
     });
