@@ -79,11 +79,11 @@ router.post("/check_user_email_phone", function(req, res) {
         }
         return res.send(retObj);
     }
-    retObj = {
-        "code": 200,
-        "message": "Email and phone are not linked to any account."
-    }
-    return res.send(retObj);
+    // retObj = {
+    //     "code": 200,
+    //     "message": "Email and phone are not linked to any account."
+    // }
+    // return res.send(retObj);
 
 });
 
