@@ -57,7 +57,7 @@ router.post("/check_user_phone", function(req, res) {
     let phone = body.phone;
     
     let sql = `
-        Select first_name from users where phone = '${phone}';
+        Select first_name from users where phone_number = '${phone}';
     `;
     db.query(sql, function (err, result) {
         console.log("Result: " + JSON.stringify(result));
