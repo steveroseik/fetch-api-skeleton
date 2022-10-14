@@ -15,6 +15,43 @@ router.use(bodyParser.urlencoded({ extended: true })); // Automatically parse UR
 // ================================================= //
 // ==> INSERT BELOW FETCH RELATED API FUNCTIONS <=== //
 
+
+// check user authentication
+router.post("/auth_user", function(req, res) {
+    let body = req.body;
+    
+    let email = body.email;
+    let pass = body.password;
+    
+    let sql = `
+        Select first_name from users where email = '${email}' and password = '${pass}';
+    `;
+    db.query(sql, function (err, result) {
+        console.log("Result: " + JSON.stringify(result));
+        if (err) {
+            retObj = {
+                "code": -200,
+                "message": err
+            }
+            return res.send(retObj);
+        } else {
+            if (result.length > 0){
+                retObj = {
+                    "code": 200,
+                    "message": `Welcome, '${result.first_name}'.`
+                }
+                return res.send(retObj);
+            }else{
+                retObj = {
+                    "code": -100,
+                    "message": "Email or password is incorrect."
+                }
+                return res.send(retObj);
+            }
+        }
+    });
+});
+
 // Request to check if user email availability
 router.post("/check_user_email", function(req, res) {
     let body = req.body;
