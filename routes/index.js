@@ -38,7 +38,7 @@ router.post("/auth_user", function(req, res) {
             if (result.length > 0){
                 retObj = {
                     "code": 200,
-                    "message": `Welcome, '${result}'.`
+                    "message": result
                 }
                 return res.send(retObj);
             }else{
