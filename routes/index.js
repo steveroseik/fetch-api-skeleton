@@ -127,6 +127,7 @@ router.post("/check_user_phone", function(req, res) {
 router.post("/add_user", function(req, res) {
 
     let body = req.body;
+    let userid = body.userid;
     let email = body.email;
     let phone = body.phone;
     let fname = body.firstname;
@@ -137,10 +138,11 @@ router.post("/add_user", function(req, res) {
     let long = 0.0;
     let lat = 0.0;
     let birthdate = body.birthdate;
+    let type = body.type;
     let sql = `
         Insert into users values
-            ("${email}", "${phone}", "${fname}", "${lname}", "${password}", 
-            "${country}", "${city}", "${long}", "${lat}", "${birthdate}")
+            ("${userid}", "${email}", "${phone}", "${fname}", "${lname}", "${password}", 
+            "${country}", "${city}", "${long}", "${lat}", "${birthdate}", ${type}, now() )
         ;
     `;
     db.query(sql, function (err, result) {
