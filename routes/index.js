@@ -21,10 +21,10 @@ router.post("/auth_user", function(req, res) {
     let body = req.body;
     
     let email = body.email;
-    let pass = body.password;
+    let uid = body.uid;
     
     let sql = `
-        Select first_name from users where email = '${email}' and password = '${pass}';
+        Select user_id from users where email = '${email}';
     `;
     db.query(sql, function (err, result) {
         console.log("Result: " + JSON.stringify(result));
@@ -36,15 +36,24 @@ router.post("/auth_user", function(req, res) {
             return res.send(retObj);
         } else {
             if (result.length > 0){
-                retObj = {
-                    "code": 200,
-                    "message": `Welcome, ${result[0].first_name}`
+                if (result[0].user_id == uid){
+                    retObj = {
+                        "code": 200,
+                        "message": `User Complete.`
+                    }
+                    return res.send(retObj);
+                }else{
+                    retObj = {
+                        "code": -100,
+                        "message": "User already exists"
+                    }
+                    return res.send(retObj);
                 }
-                return res.send(retObj);
+                
             }else{
                 retObj = {
-                    "code": -100,
-                    "message": "Email or password is incorrect."
+                    "code": 0,
+                    "message": "New User."
                 }
                 return res.send(retObj);
             }
@@ -67,7 +76,7 @@ router.post("/check_user_email", function(req, res) {
             retObj = {
                 "code": -200,
                 "message": err
-            }
+            } 
             return res.send(retObj);
         } else {
             if (result.length > 0){
